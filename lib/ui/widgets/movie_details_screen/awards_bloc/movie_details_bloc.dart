@@ -2,13 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movie_awards_repository/movie_awards_repository.dart';
 
-part 'awards_event.dart';
-part 'awards_state.dart';
+part 'movie_details_state.dart';
+part 'movie_details_event.dart';
 
-class AwardsBloc extends Bloc<AwardsEvent, AwardsState> {
+class MovieAwardsBloc extends Bloc<MovieDetailsEvent, AwardsState> {
   final int? movieId;
   final MovieAwardsRepository repository;
-  AwardsBloc({required this.repository, required this.movieId})
+  MovieAwardsBloc({required this.repository, required this.movieId})
       : super(const AwardsState()) {
     on<AwardsFetched>(
       _onAwardsFetched,
@@ -20,18 +20,18 @@ class AwardsBloc extends Bloc<AwardsEvent, AwardsState> {
     Emitter<AwardsState> emit,
   ) async {
     try {
-      if (state.status == AwardsStatus.initial) {
-        emit(state.copyWith(status: AwardsStatus.loading));
+      if (state.status == MovieDetailsStatus.initial) {
+        emit(state.copyWith(status: MovieDetailsStatus.loading));
         final awards = await repository.getMovieAwards(movieId: movieId);
         return emit(
           state.copyWith(
             awards: awards.movieAwards,
-            status: AwardsStatus.success,
+            status: MovieDetailsStatus.success,
           ),
         );
       }
     } catch (_) {
-      emit(state.copyWith(status: AwardsStatus.failure));
+      emit(state.copyWith(status: MovieDetailsStatus.failure));
     }
   }
 }

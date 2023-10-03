@@ -7,6 +7,7 @@ import 'package:search_movies_repository/search_movies_repository.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final MovieIdResponse movie;
+
   const MovieDetailsScreen({Key? key, required this.movie}) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     final theme = FlexThemeDataStyle.darkThemeStyle;
     final movie = widget.movie;
-    final bgColor = theme.appBarTheme.backgroundColor!.withOpacity(0);
+    final bgColor = theme.scaffoldBackgroundColor;
     final mediaQueryData = MediaQuery.of(context);
     final height = mediaQueryData.size.height;
 
@@ -48,15 +49,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               onStretchTrigger: () async {},
               stretchTriggerOffset: 300.0,
               expandedHeight: (height - 100),
+              centerTitle: true,
               flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsetsDirectional.only(
+                  bottom: 0,
+                ),
+                expandedTitleScale: 1.2,
                 collapseMode: CollapseMode.parallax,
-                centerTitle: true,
                 title: Container(
-                  color: bgColor,
                   width: double.maxFinite,
-                  height: 30,
+                  color: bgColor,
+                  // color: const Color.fromARGB(255, 34, 43, 46),
+                  height: 65,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.zero,
+                  // padding: const EdgeInsets.only(bottom: 0, top: 0),
+                  // margin: EdgeInsets.zero,
                   child: Text(
                     '${movie.name}',
                     style: const TextStyle(
@@ -65,7 +72,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                 ), // Заголовок SliverAppBar
                 background: Stack(
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.topCenter,
                   children: [
                     Stack(
                       fit: StackFit.expand,
@@ -106,7 +113,16 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               delegate: SliverChildListDelegate([
                 MovieDetailsMainInfoWidget(movie: movie),
               ]),
-            )
+            ),
+            SliverList.builder(
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 100,
+                  color: Colors.red,
+                );
+              },
+              itemCount: 10,
+            ),
           ],
         ),
       ),

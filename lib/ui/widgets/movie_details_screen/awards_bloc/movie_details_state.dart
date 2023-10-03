@@ -1,18 +1,18 @@
-part of 'awards_bloc.dart';
+part of 'movie_details_bloc.dart';
 
-enum AwardsStatus { initial, success, failure, loading }
+enum MovieDetailsStatus { initial, success, failure, loading }
 
 final class AwardsState extends Equatable {
   const AwardsState({
-    this.status = AwardsStatus.initial,
+    this.status = MovieDetailsStatus.initial,
     this.awards = const <MovieAwards>[],
   });
 
-  final AwardsStatus status;
+  final MovieDetailsStatus status;
   final List<MovieAwards> awards;
 
   AwardsState copyWith({
-    AwardsStatus? status,
+    MovieDetailsStatus? status,
     List<MovieAwards>? awards,
   }) {
     return AwardsState(

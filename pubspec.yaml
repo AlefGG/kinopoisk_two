@@ -21,6 +21,8 @@ dependencies:
     path: packages/search_mvoies_repository
   movie_awards_repository:
     path: packages/movie_awards_repository
+  movie_details_repository:
+    path: packages/movie_details_repository
 
 dev_dependencies:
   flutter_test:
